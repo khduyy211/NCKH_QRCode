@@ -172,6 +172,23 @@ function initShelfClickHandlers() {
     });
   }
   
+  // Xử lý đóng modal - đảm bảo modal đóng hoàn toàn và quay lại shelf-map
+  if (modalElement) {
+    // Lắng nghe sự kiện khi modal bị ẩn
+    modalElement.addEventListener('hidden.bs.modal', function () {
+      console.log('Modal đã đóng, đang ở trang shelf-map');
+      // Xóa backdrop nếu còn sót lại
+      const backdrop = document.querySelector('.modal-backdrop');
+      if (backdrop) {
+        backdrop.remove();
+      }
+      // Bỏ class modal-open khỏi body để đảm bảo có thể scroll lại
+      document.body.classList.remove('modal-open');
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+    });
+  }
+  
   console.log('Shelf click handlers initialized successfully');
 }
 
