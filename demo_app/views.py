@@ -8,4 +8,7 @@ def bookshelf(req):
     return render(req,"bookshelf.html")
 
 def admin(req):
-    return render(req,"admin.html")
+    dic = {
+        "title":"admin-1"
+    }
+    return render(req,"admin.html",context=dic)
