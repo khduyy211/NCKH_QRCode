@@ -1,0 +1,93 @@
+{% load static %}
+
+<!-- Modal Chi Tiết Ma Trận Kệ -->
+<div
+  class="modal fade"
+  id="shelfMatrixModal"
+  tabindex="-1"
+  aria-labelledby="shelfMatrixModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="shelfMatrixModalLabel">
+          <i class="bi bi-grid-3x3"></i> Chi tiết kệ sách
+        </h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Đóng"
+        ></button>
+      </div>
+      <div class="modal-body p-4">
+        <!-- Thông tin kệ -->
+        <div class="shelf-info-header mb-4">
+          <h6 class="text-secondary mb-2">Thông tin kệ</h6>
+          <div class="row">
+            <div class="col-md-4">
+              <strong>Mã kệ:</strong> <span id="matrixShelfId">-</span>
+            </div>
+            <div class="col-md-4">
+              <strong>Số hàng:</strong> <span id="matrixRows">-</span>
+            </div>
+            <div class="col-md-4">
+              <strong>Số cột:</strong> <span id="matrixCols">-</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ma trận kệ -->
+        <div class="shelf-matrix-container">
+          <div id="shelfMatrix" class="shelf-matrix">
+            <!-- Ma trận sẽ được tạo động bằng JavaScript -->
+          </div>
+        </div>
+
+        <!-- Chú thích -->
+        <div class="matrix-legend mt-4">
+          <h6 class="text-secondary mb-3">Chú thích</h6>
+          <div class="row">
+            <div class="col-md-3">
+              <span class="legend-item">
+                <span class="legend-color" style="background: #28a745;"></span>
+                <span>Còn trống</span>
+              </span>
+            </div>
+            <div class="col-md-3">
+              <span class="legend-item">
+                <span class="legend-color" style="background: #ffc107;"></span>
+                <span>Sắp đầy</span>
+              </span>
+            </div>
+            <div class="col-md-3">
+              <span class="legend-item">
+                <span class="legend-color" style="background: #dc3545;"></span>
+                <span>Đã đầy</span>
+              </span>
+            </div>
+            <div class="col-md-3">
+              <span class="legend-item">
+                <span class="legend-color" style="background: #6c757d;"></span>
+                <span>Không sử dụng</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" id="exportBtn">
+          <i class="bi bi-download"></i> Xuất báo cáo
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+        >
+          Đóng
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
