@@ -7,16 +7,7 @@ document.getElementById("searchBtn").addEventListener("click", () => {
         alert("Vui lòng nhập từ khóa để tìm kiếm!");
     }
 });
-document.addEventListener("DOMContentLoaded", () => {
-    const adminButton = document.getElementById("btnAdmin");
 
-    if (adminButton) {
-        adminButton.addEventListener("click", () => {
-            // Giả lập kiểm tra quyền truy cập, có thể mở rộng logic đăng nhập ở đây
-            window.location.href = "admin.html"; // Chuyển trang sang admin.html
-        });
-    }
-});
 
       // delegate click on shelf faces
       document.querySelectorAll(".shelf-face").forEach((el) => {

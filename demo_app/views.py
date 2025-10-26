@@ -6,3 +6,6 @@ def index(req):
 
 def bookshelf(req):
     return render(req,"bookshelf.html")
+
+def admin(req):
+    return render(req,"admin.html")
