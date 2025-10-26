@@ -1,0 +1,154 @@
+:root {
+  --stu-black: #000000;
+  --stu-blue: #0b45c9; /* đường phân cách (blue) */
+  --bg: #ffffff;
+  --distance: 876.2px;
+}
+
+body {
+  background: #f6f7fb;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial;
+  color: #111827;
+}
+
+.map-title {
+  margin-top: 22px;
+  margin-bottom: 18px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+/* layout container for the "warehouse" style map */
+.library-map {
+  padding: 20px 10px 60px;
+}
+
+/* Column container of a shelf-stack */
+.shelf-stack {
+  display: grid;
+  grid-template-rows: repeat(4, auto);
+  gap: 28px 0;
+  align-items: center;
+}
+
+.shelf-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0;
+}
+.shelf {
+  background-color: #000;
+  color: white;
+  border-radius: 15px;
+  padding: 20px 40px;
+  text-align: center;
+  margin: 0px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  min-width: 200px;
+}
+.path {
+  background-color: #0d6efd;
+  height: 15px;
+  border-radius: 10px;
+  width: 400px;
+  margin: 0 auto;
+}
+.shelf-face.badgeable::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  width: 10px;
+  height: 10px;
+  background: #ffd54a;
+  border-radius: 50%;
+}
+
+.shelf-face:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.24);
+}
+
+/* text inside black box (for accessibility while keeping visual black) */
+.shelf-face .label {
+  color: rgba(255, 255, 255, 0.98);
+  font-weight: 600;
+  font-size: 0.95rem;
+  pointer-events: none;
+}
+
+/* horizontal separator (blue stripe through pair) */
+.separator-h {
+  background: var(--stu-blue);
+  height: 18px;
+  border-radius: 6px;
+  margin: 0px 0; /* overlap slightly to match your reference look */
+  box-shadow: 0 4px 8px rgba(11, 69, 201, 0.12);
+}
+
+/* vertical aisle between left + right stacks */
+.aisle-vertical {
+  background: var(--stu-blue);
+  border-radius: 12px;
+  width: 56px;
+  height: var(--distance);
+  box-shadow: 0 10px 20px rgba(11, 69, 201, 0.08);
+  display: flex;
+  align-items: center;
+  margin: auto;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* responsive tweaks */
+@media (max-width: 991px) {
+  .aisle-vertical {
+    width: 36px;
+    min-height: 420px;
+  }
+  .shelf-face {
+    height: 64px;
+    border-radius: 14px;
+  }
+  .separator-h {
+    height: 14px;
+    margin: -12px 0;
+  }
+}
+
+@media (max-width: 700px) {
+  /* stack into single column on small screens: left stacks, aisle, right stacks -> vertical */
+  .map-grid {
+    grid-template-columns: 1fr !important;
+    gap: 18px;
+  }
+  .aisle-vertical {
+    width: 100%;
+    min-height: 14px;
+    padding: 4px 0;
+  }
+  .shelf-stack {
+    grid-template-rows: repeat(8, auto);
+  }
+}
+
+/* small helper to show labels under each row (optional) */
+.row-label {
+  font-size: 0.9rem;
+  color: #333;
+  text-align: center;
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+/* subtle outline for keyboard focus */
+.shelf-face:focus {
+  outline: 3px solid rgba(11, 69, 201, 0.18);
+  outline-offset: 4px;
+}

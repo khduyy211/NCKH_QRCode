@@ -1,0 +1,124 @@
+{% extends 'layout/header_footer.html' %} {% load static %} {% block content %}
+<!-- STATS -->
+<section class="stats py-5 text-center bg-light">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-6 col-md-3">
+        <div class="card border-0 shadow-sm py-3">
+          <i class="bi bi-book-half fs-1 text-primary"></i>
+          <h5 class="mt-2">Tổng số sách</h5>
+          <p class="fw-bold text-secondary">1,250 cuốn</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="card border-0 shadow-sm py-3">
+          <i class="bi bi-journal-check fs-1 text-success"></i>
+          <h5 class="mt-2">Sách đang mượn</h5>
+          <p class="fw-bold text-secondary">320 cuốn</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="card border-0 shadow-sm py-3">
+          <i class="bi bi-exclamation-triangle fs-1 text-danger"></i>
+          <h5 class="mt-2">Sách quá hạn</h5>
+          <p class="fw-bold text-secondary">45 cuốn</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="card border-0 shadow-sm py-3">
+          <i class="bi bi-people fs-1 text-info"></i>
+          <h5 class="mt-2">Người dùng</h5>
+          <p class="fw-bold text-secondary">980 người</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEARCH -->
+<section class="py-5 bg-white">
+  <div class="container text-center">
+    <h3 class="fw-bold mb-4">Tìm kiếm tài liệu</h3>
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-sm-10">
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Nhập tên sách, tác giả..."
+            id="searchInput"
+          />
+          <button class="btn btn-primary" id="searchBtn">
+            <i class="bi bi-search"></i> Tìm
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED BOOKS -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <h3 class="fw-bold mb-4 text-center">Sách nổi bật</h3>
+    <div class="row g-4">
+      <div class="col-md-3 col-sm-6">
+        <div class="card h-100 shadow-sm">
+          <img
+            src="https://via.placeholder.com/200x250"
+            class="card-img-top"
+            alt="Book"
+          />
+          <div class="card-body text-center">
+            <h6 class="card-title fw-bold">Start Night</h6>
+            <button class="btn btn-outline-primary btn-sm">Xem chi tiết</button>
+            <button class="btn btn-primary btn-sm mt-2">Mượn</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="card h-100 shadow-sm">
+          <img
+            src="https://via.placeholder.com/200x250"
+            class="card-img-top"
+            alt="Book"
+          />
+          <div class="card-body text-center">
+            <h6 class="card-title fw-bold">Artistic</h6>
+            <button class="btn btn-outline-primary btn-sm">Xem chi tiết</button>
+            <button class="btn btn-primary btn-sm mt-2">Mượn</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="card h-100 shadow-sm">
+          <img
+            src="https://via.placeholder.com/200x250"
+            class="card-img-top"
+            alt="Book"
+          />
+          <div class="card-body text-center">
+            <h6 class="card-title fw-bold">Science</h6>
+            <button class="btn btn-outline-primary btn-sm">Xem chi tiết</button>
+            <button class="btn btn-primary btn-sm mt-2">Mượn</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="card h-100 shadow-sm">
+          <img
+            src="https://via.placeholder.com/200x250"
+            class="card-img-top"
+            alt="Book"
+          />
+          <div class="card-body text-center">
+            <h6 class="card-title fw-bold">Spring</h6>
+            <button class="btn btn-outline-primary btn-sm">Xem chi tiết</button>
+            <button class="btn btn-primary btn-sm mt-2">Mượn</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,254 @@
+{% extends 'layout/header_footer.html' %}
+{% load static %}
+{% block content %}
+
+      <!-- 🔍 Search Section -->
+      <div class="container search-section">
+        <h4 class="mb-3 fw-semibold text-primary">Tìm kiếm sách</h4>
+        <form class="row g-3 align-items-center">
+          <div class="col-md-8 position-relative">
+            <span class="search-icon"><i class="bi bi-search"></i></span>
+            <input
+              type="text"
+              class="form-control search-input"
+              placeholder="Nhập tên hoặc mã sách (VD: Lập trình C++)"
+            />
+          </div>
+          <div class="col-md-2 d-grid">
+            <button type="button" class="btn btn-primary">🔍 Tìm kiếm</button>
+          </div>
+          <div class="col-md-2 d-grid">
+            <button type="button" class="btn btn-outline-secondary">
+              📷 Quét QR
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- MAP -->
+      <div class="library-map">
+        <!-- use CSS grid to form three columns: left stack, aisle, right stack -->
+        <div
+          class="map-grid"
+          style="
+            display: grid;
+            grid-template-columns: 1fr 80px 1fr;
+            gap: 30px;
+            align-items: start;
+          "
+        >
+          <!-- LEFT STACK -->
+          <div class="shelf-stack" id="leftStack" aria-label="Cột kệ trái">
+            <!-- row 1 (two faces with separator through middle) -->
+            <div class="container py-4 text-center">
+              <!-- Hàng kệ A1 -->
+              <div class="shelf-row">
+                <div class="shelf">A1-M1</div>
+                <div class="shelf">A1-M2</div>
+              </div>
+
+              <!-- Đường đi giữa -->
+              <div class="path"></div>
+
+              <!-- Hàng kệ A2 -->
+              <div class="shelf-row">
+                <div class="shelf">A2-M1</div>
+                <div class="shelf">A2-M2</div>
+              </div>
+            </div>
+
+            <!-- row 2 -->
+            <div class="container py-4 text-center">
+              <!-- Hàng kệ A1 -->
+              <div class="shelf-row">
+                <div class="shelf">A1-M1</div>
+                <div class="shelf">A1-M2</div>
+              </div>
+
+              <!-- Đường đi giữa -->
+              <div class="path"></div>
+
+              <!-- Hàng kệ A2 -->
+              <div class="shelf-row">
+                <div class="shelf">A2-M1</div>
+                <div class="shelf">A2-M2</div>
+              </div>
+            </div>
+
+            <!-- row 3 -->
+            <div class="container py-4 text-center">
+              <!-- Hàng kệ A1 -->
+              <div class="shelf-row">
+                <div class="shelf">A1-M1</div>
+                <div class="shelf">A1-M2</div>
+              </div>
+
+              <!-- Đường đi giữa -->
+              <div class="path"></div>
+
+              <!-- Hàng kệ A2 -->
+              <div class="shelf-row">
+                <div class="shelf">A2-M1</div>
+                <div class="shelf">A2-M2</div>
+              </div>
+            </div>
+
+            <!-- row 4 -->
+            <div class="container py-4 text-center">
+              <!-- Hàng kệ A1 -->
+              <div class="shelf-row">
+                <div class="shelf">A1-M1</div>
+                <div class="shelf">A1-M2</div>
+              </div>
+
+              <!-- Đường đi giữa -->
+              <div class="path"></div>
+
+              <!-- Hàng kệ A2 -->
+              <div class="shelf-row">
+                <div class="shelf">A2-M1</div>
+                <div class="shelf">A2-M2</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AISLE (vertical blue strip) -->
+          <div class="d-flex align-items-center justify-content-center">
+            <div class="aisle-vertical" aria-hidden="true">LỐI ĐI</div>
+          </div>
+
+          <!-- RIGHT STACK -->
+          <div class="shelf-stack" id="leftStack" aria-label="Cột kệ trái">
+            <!-- row 1 (two faces with separator through middle) -->
+            <div class="container py-4 text-center">
+              <!-- Hàng kệ A1 -->
+              <div class="shelf-row">
+                <div class="shelf">A1-M1</div>
+                <div class="shelf">A1-M2</div>
+              </div>
+
+              <!-- Đường đi giữa -->
+              <div class="path"></div>
+
+              <!-- Hàng kệ A2 -->
+              <div class="shelf-row">
+                <div class="shelf" >A2-M1</div>
+                <div class="shelf">A2-M2</div>
+              </div>
+            </div>
+
+            <!-- row 2 -->
+            <div class="container py-4 text-center">
+              <!-- Hàng kệ A1 -->
+              <div class="shelf-row">
+                <div class="shelf">A1-M1</div>
+                <div class="shelf">A1-M2</div>
+              </div>
+
+              <!-- Đường đi giữa -->
+              <div class="path"></div>
+
+              <!-- Hàng kệ A2 -->
+              <div class="shelf-row">
+                <div class="shelf">A2-M1</div>
+                <div class="shelf">A2-M2</div>
+              </div>
+            </div>
+
+            <!-- row 3 -->
+            <div class="container py-4 text-center">
+              <!-- Hàng kệ A1 -->
+              <div class="shelf-row">
+                <div class="shelf" data-bs-toggle="modal" data-bs-target="#bookModal" data-shelf="A1-M1">A1-M1</div>
+                <div class="shelf" data-bs-toggle="modal" data-bs-target="#bookModal" data-shelf="A1-M2">A1-M2</div>
+              </div>
+
+              <!-- Đường đi giữa -->
+              <div class="path"></div>
+
+              <!-- Hàng kệ A2 -->
+              <div class="shelf-row">
+                <div class="shelf">A2-M1</div>
+                <div class="shelf">A2-M2</div>
+              </div>
+            </div>
+
+            <!-- row 4 -->
+            <div class="container py-4 text-center">
+              <!-- Hàng kệ A1 -->
+              <div class="shelf-row">
+                <div class="shelf">A1-M1</div>
+                <div class="shelf">A1-M2</div>
+              </div>
+
+              <!-- Đường đi giữa -->
+              <div class="path"></div>
+
+              <!-- Hàng kệ A2 -->
+              <div class="shelf-row">
+                <div class="shelf">A2-M1</div>
+                <div class="shelf">A2-M2</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- small legend -->
+      <div class="mt-3">
+        <small class="text-muted"
+          >Ghi chú: Mỗi ô đen = 1 mặt kệ (ấn để xem chi tiết). Dải màu xanh =
+          đường phân cách / lối đi.</small
+        >
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="shelfModal"
+      tabindex="-1"
+      aria-labelledby="shelfModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered"
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="shelfModalLabel">Chi tiết mặt kệ</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Đóng"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p id="shelfInfo">Đang tải...</p>
+
+            <!-- sample content: small table of top books -->
+            <div id="sampleBooks" class="mt-3" style="display: none">
+              <h6>Ví dụ đầu sách (top 3)</h6>
+              <ul id="bookList"></ul>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              id="locateBtn"
+              type="button"
+              class="btn btn-outline-primary"
+            >
+              Đánh dấu vị trí
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Đóng
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}
