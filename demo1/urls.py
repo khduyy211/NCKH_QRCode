@@ -23,5 +23,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.index, name = "index"),
     path("shelf-map", views.bookshelf, name = "shelf-map"),
-    path("admin", views.admin, name = "admin"),
+    path("admin-1", views.admin, name = "admin-1"),
 ]
