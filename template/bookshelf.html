@@ -22,6 +22,15 @@
             </button>
           </div>
         </form>
+
+        <!-- Chú thích trạng thái kệ -->
+        <div class="mt-3 d-flex justify-content-center align-items-center gap-4 flex-wrap">
+          <small><strong>Chú thích trạng thái:</strong></small>
+          <small><span class="badge" style="background-color: #6c757d;">⚪ Trống</span></small>
+          <small><span class="badge" style="background-color: #198754;">🟢 Ít sách (&lt;30%)</span></small>
+          <small><span class="badge" style="background-color: #ffc107; color: #000;">🟡 Trung bình (30-70%)</span></small>
+          <small><span class="badge" style="background-color: #dc3545;">🔴 Gần đầy (&gt;70%)</span></small>
+        </div>
       </div>
 
       <!-- MAP -->
@@ -38,77 +47,37 @@
         >
           <!-- LEFT STACK -->
           <div class="shelf-stack" id="leftStack" aria-label="Cột kệ trái">
-            <!-- row 1 (two faces with separator through middle) -->
+            {% comment %}Hiển thị các kệ bên trái (A1-D2){% endcomment %}
+            {% for row_letter in "ABCD" %}
             <div class="container py-4 text-center">
-              <!-- Hàng kệ A1 -->
+              <!-- Hàng kệ {{row_letter}}1 -->
               <div class="shelf-row">
-                <div class="shelf shelf-clickable" data-shelf-id="A1-M1">A1-M1</div>
-                <div class="shelf shelf-clickable" data-shelf-id="A1-M2">A1-M2</div>
+                <div class="shelf shelf-clickable" data-shelf-id="{{row_letter}}1-M1">
+                  <div class="shelf-name">{{row_letter}}1-M1</div>
+                  <div class="shelf-info"><small class="book-count">...</small></div>
+                </div>
+                <div class="shelf shelf-clickable" data-shelf-id="{{row_letter}}1-M2">
+                  <div class="shelf-name">{{row_letter}}1-M2</div>
+                  <div class="shelf-info"><small class="book-count">...</small></div>
+                </div>
               </div>
 
               <!-- Đường đi giữa -->
               <div class="path"></div>
 
-              <!-- Hàng kệ A2 -->
+              <!-- Hàng kệ {{row_letter}}2 -->
               <div class="shelf-row">
-                <div class="shelf shelf-clickable" data-shelf-id="A2-M1">A2-M1</div>
-                <div class="shelf shelf-clickable" data-shelf-id="A2-M2">A2-M2</div>
+                <div class="shelf shelf-clickable" data-shelf-id="{{row_letter}}2-M1">
+                  <div class="shelf-name">{{row_letter}}2-M1</div>
+                  <div class="shelf-info"><small class="book-count">...</small></div>
+                </div>
+                <div class="shelf shelf-clickable" data-shelf-id="{{row_letter}}2-M2">
+                  <div class="shelf-name">{{row_letter}}2-M2</div>
+                  <div class="shelf-info"><small class="book-count">...</small></div>
+                </div>
               </div>
             </div>
-
-            <!-- row 2 -->
-            <div class="container py-4 text-center">
-              <!-- Hàng kệ B1 -->
-              <div class="shelf-row">
-                <div class="shelf shelf-clickable" data-shelf-id="B1-M1">B1-M1</div>
-                <div class="shelf shelf-clickable" data-shelf-id="B1-M2">B1-M2</div>
-              </div>
-
-              <!-- Đường đi giữa -->
-              <div class="path"></div>
-
-              <!-- Hàng kệ B2 -->
-              <div class="shelf-row">
-                <div class="shelf shelf-clickable" data-shelf-id="B2-M1">B2-M1</div>
-                <div class="shelf shelf-clickable" data-shelf-id="B2-M2">B2-M2</div>
-              </div>
-            </div>
-
-            <!-- row 3 -->
-            <div class="container py-4 text-center">
-              <!-- Hàng kệ C1 -->
-              <div class="shelf-row">
-                <div class="shelf shelf-clickable" data-shelf-id="C1-M1">C1-M1</div>
-                <div class="shelf shelf-clickable" data-shelf-id="C1-M2">C1-M2</div>
-              </div>
-
-              <!-- Đường đi giữa -->
-              <div class="path"></div>
-
-              <!-- Hàng kệ C2 -->
-              <div class="shelf-row">
-                <div class="shelf shelf-clickable" data-shelf-id="C2-M1">C2-M1</div>
-                <div class="shelf shelf-clickable" data-shelf-id="C2-M2">C2-M2</div>
-              </div>
-            </div>
-
-            <!-- row 4 -->
-            <div class="container py-4 text-center">
-              <!-- Hàng kệ D1 -->
-              <div class="shelf-row">
-                <div class="shelf shelf-clickable" data-shelf-id="D1-M1">D1-M1</div>
-                <div class="shelf shelf-clickable" data-shelf-id="D1-M2">D1-M2</div>
-              </div>
-
-              <!-- Đường đi giữa -->
-              <div class="path"></div>
-
-              <!-- Hàng kệ D2 -->
-              <div class="shelf-row">
-                <div class="shelf shelf-clickable" data-shelf-id="D2-M1">D2-M1</div>
-                <div class="shelf shelf-clickable" data-shelf-id="D2-M2">D2-M2</div>
-              </div>
-            </div>
+            {% endfor %}
           </div>
 
           <!-- AISLE (vertical blue strip) -->
@@ -118,77 +87,37 @@
 
           <!-- RIGHT STACK -->
           <div class="shelf-stack" id="rightStack" aria-label="Cột kệ phải">
-            <!-- row 1 (two faces with separator through middle) -->
+            {% comment %}Hiển thị các kệ bên phải (E1-H2){% endcomment %}
+            {% for row_letter in "EFGH" %}
             <div class="container py-4 text-center">
-              <!-- Hàng kệ E1 -->
+              <!-- Hàng kệ {{row_letter}}1 -->
               <div class="shelf-row">
-                <div class="shelf shelf-clickable" data-shelf-id="E1-M1">E1-M1</div>
-                <div class="shelf shelf-clickable" data-shelf-id="E1-M2">E1-M2</div>
+                <div class="shelf shelf-clickable" data-shelf-id="{{row_letter}}1-M1">
+                  <div class="shelf-name">{{row_letter}}1-M1</div>
+                  <div class="shelf-info"><small class="book-count">...</small></div>
+                </div>
+                <div class="shelf shelf-clickable" data-shelf-id="{{row_letter}}1-M2">
+                  <div class="shelf-name">{{row_letter}}1-M2</div>
+                  <div class="shelf-info"><small class="book-count">...</small></div>
+                </div>
               </div>
 
               <!-- Đường đi giữa -->
               <div class="path"></div>
 
-              <!-- Hàng kệ E2 -->
+              <!-- Hàng kệ {{row_letter}}2 -->
               <div class="shelf-row">
-                <div class="shelf shelf-clickable" data-shelf-id="E2-M1">E2-M1</div>
-                <div class="shelf shelf-clickable" data-shelf-id="E2-M2">E2-M2</div>
+                <div class="shelf shelf-clickable" data-shelf-id="{{row_letter}}2-M1">
+                  <div class="shelf-name">{{row_letter}}2-M1</div>
+                  <div class="shelf-info"><small class="book-count">...</small></div>
+                </div>
+                <div class="shelf shelf-clickable" data-shelf-id="{{row_letter}}2-M2">
+                  <div class="shelf-name">{{row_letter}}2-M2</div>
+                  <div class="shelf-info"><small class="book-count">...</small></div>
+                </div>
               </div>
             </div>
-
-            <!-- row 2 -->
-            <div class="container py-4 text-center">
-              <!-- Hàng kệ F1 -->
-              <div class="shelf-row">
-                <div class="shelf shelf-clickable" data-shelf-id="F1-M1">F1-M1</div>
-                <div class="shelf shelf-clickable" data-shelf-id="F1-M2">F1-M2</div>
-              </div>
-
-              <!-- Đường đi giữa -->
-              <div class="path"></div>
-
-              <!-- Hàng kệ F2 -->
-              <div class="shelf-row">
-                <div class="shelf shelf-clickable" data-shelf-id="F2-M1">F2-M1</div>
-                <div class="shelf shelf-clickable" data-shelf-id="F2-M2">F2-M2</div>
-              </div>
-            </div>
-
-            <!-- row 3 -->
-            <div class="container py-4 text-center">
-              <!-- Hàng kệ G1 -->
-              <div class="shelf-row">
-                <div class="shelf shelf-clickable" data-shelf-id="G1-M1">G1-M1</div>
-                <div class="shelf shelf-clickable" data-shelf-id="G1-M2">G1-M2</div>
-              </div>
-
-              <!-- Đường đi giữa -->
-              <div class="path"></div>
-
-              <!-- Hàng kệ G2 -->
-              <div class="shelf-row">
-                <div class="shelf shelf-clickable" data-shelf-id="G2-M1">G2-M1</div>
-                <div class="shelf shelf-clickable" data-shelf-id="G2-M2">G2-M2</div>
-              </div>
-            </div>
-
-            <!-- row 4 -->
-            <div class="container py-4 text-center">
-              <!-- Hàng kệ H1 -->
-              <div class="shelf-row">
-                <div class="shelf shelf-clickable" data-shelf-id="H1-M1">H1-M1</div>
-                <div class="shelf shelf-clickable" data-shelf-id="H1-M2">H1-M2</div>
-              </div>
-
-              <!-- Đường đi giữa -->
-              <div class="path"></div>
-
-              <!-- Hàng kệ H2 -->
-              <div class="shelf-row">
-                <div class="shelf shelf-clickable" data-shelf-id="H2-M1">H2-M1</div>
-                <div class="shelf shelf-clickable" data-shelf-id="H2-M2">H2-M2</div>
-              </div>
-            </div>
+            {% endfor %}
           </div>
         </div>
       </div>
@@ -196,116 +125,44 @@
       
 
     <!-- Include Modal Chi Tiết Ma Trận Kệ -->
+    <!-- Include Modal Chi Tiết Ma Trận Kệ -->
     {% include 'shelf_detail.html' %}
 
-    <!-- Modal -->
-    <div
-      class="modal fade"
-      id="shelfModal"
-      tabindex="-1"
-      aria-labelledby="shelfModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="shelfModalLabel">Chi tiết mặt kệ</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Đóng"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <p id="shelfInfo">Đang tải...</p>
-
-            <!-- sample content: small table of top books -->
-            <div id="sampleBooks" class="mt-3" style="display: none">
-              <h6>Ví dụ đầu sách (top 3)</h6>
-              <ul id="bookList"></ul>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button
-              id="locateBtn"
-              type="button"
-              class="btn btn-outline-primary"
-            >
-              Đánh dấu vị trí
-            </button>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Đóng
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Script inline để xử lý click vào kệ -->
+    <!-- Script để load dữ liệu thật vào các kệ -->
     <script>
-      // Chờ DOM và Bootstrap sẵn sàng
-      (function() {
-        console.log('Bookshelf script initializing...');
-        
-        function initShelfClick() {
-          console.log('DOM ready, attaching click handlers...');
+      // Dữ liệu kệ từ Django backend (Django template sẽ render thành JSON)
+      // eslint-disable-next-line
+      const shelvesDataFromBackend = {{ shelves_data_json|safe }};
+      
+      // Hàm cập nhật hiển thị kệ với dữ liệu thật
+      function updateShelvesDisplay() {
+        document.querySelectorAll('.shelf-clickable').forEach(shelfElement => {
+          const shelfId = shelfElement.getAttribute('data-shelf-id');
+          const shelfData = shelvesDataFromBackend[shelfId];
           
-          const shelves = document.querySelectorAll('.shelf-clickable');
-          console.log('Found shelves:', shelves.length);
-          
-          if (shelves.length === 0) {
-            console.error('No .shelf-clickable elements found!');
-            return;
+          if (shelfData) {
+            // Cập nhật số sách
+            const bookCountEl = shelfElement.querySelector('.book-count');
+            if (bookCountEl) {
+              bookCountEl.textContent = `${shelfData.book_count} quyển`;
+            }
+            
+            // Thêm class status để đổi màu
+            shelfElement.classList.remove('shelf-status-empty', 'shelf-status-low', 'shelf-status-medium', 'shelf-status-high');
+            shelfElement.classList.add(`shelf-status-${shelfData.status}`);
+            
+            // Cập nhật tooltip
+            shelfElement.title = `${shelfData.description}\n${shelfData.book_count} quyển sách (${shelfData.fill_percentage}% đầy)`;
           }
-          
-          shelves.forEach((shelf, index) => {
-            console.log(`Attaching handler to shelf ${index}:`, shelf.getAttribute('data-shelf-id'));
-            
-            shelf.addEventListener('click', function(e) {
-              e.preventDefault();
-              e.stopPropagation();
-              
-              const shelfId = this.getAttribute('data-shelf-id');
-              console.log('Shelf clicked:', shelfId);
-              
-              // Kiểm tra hàm createShelfMatrix có tồn tại không
-              if (typeof createShelfMatrix === 'function') {
-                createShelfMatrix(shelfId);
-                
-                // Hiển thị modal
-                const modalElement = document.getElementById('shelfMatrixModal');
-                if (modalElement) {
-                  const modal = new bootstrap.Modal(modalElement);
-                  modal.show();
-                } else {
-                  console.error('Modal element not found!');
-                }
-              } else {
-                console.error('createShelfMatrix function not found!');
-                alert('Tính năng đang được phát triển. Kệ: ' + shelfId);
-              }
-            });
-            
-            // Đảm bảo cursor pointer
-            shelf.style.cursor = 'pointer';
-          });
-          
-          console.log('Click handlers attached successfully!');
-        }
-        
-        // Khởi tạo khi trang sẵn sàng
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', initShelfClick);
-        } else {
-          // Delay một chút để đảm bảo mọi thứ đã load
-          setTimeout(initShelfClick, 100);
-        }
-      })();
+        });
+      }
+      
+      // Gọi ngay khi DOM ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updateShelvesDisplay);
+      } else {
+        updateShelvesDisplay();
+      }
     </script>
 
 {% endblock %}

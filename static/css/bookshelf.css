@@ -54,12 +54,47 @@ body {
 
 .shelf-clickable {
   cursor: pointer;
+  position: relative;
 }
 
 .shelf-clickable:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
   background-color: #333;
+}
+
+/* Trạng thái kệ theo số lượng sách */
+.shelf-status-empty {
+  background-color: #6c757d !important; /* Xám - Trống */
+  opacity: 0.6;
+}
+
+.shelf-status-low {
+  background-color: #198754 !important; /* Xanh lá - Ít sách */
+}
+
+.shelf-status-medium {
+  background-color: #ffc107 !important; /* Vàng - Trung bình */
+  color: #000 !important;
+}
+
+.shelf-status-high {
+  background-color: #dc3545 !important; /* Đỏ - Gần đầy */
+}
+
+.shelf-name {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.shelf-info {
+  margin-top: 5px;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+.shelf-status-medium .shelf-info {
+  color: #000;
 }
 .path {
   background-color: #0d6efd;

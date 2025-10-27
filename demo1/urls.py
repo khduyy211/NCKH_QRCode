@@ -24,4 +24,9 @@ urlpatterns = [
     path("", views.index, name = "index"),
     path("shelf-map", views.bookshelf, name = "shelf-map"),
     path("admin-1", views.admin, name = "admin-1"),
+    
+    # API endpoints
+    path("api/shelves/", views.api_get_all_shelves, name="api-all-shelves"),
+    path("api/shelf/<str:shelf_name>/", views.api_get_shelf_data, name="api-shelf-data"),
+    path("api/shelf/<str:shelf_name>/compartment/<str:compartment_name>/", views.api_get_compartment_books, name="api-compartment-books"),
 ]

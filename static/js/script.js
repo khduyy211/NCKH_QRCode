@@ -2,113 +2,107 @@
 
 // ====== XỬ LÝ MA TRẬN KỆ SÁCH ======
 
-// Dữ liệu mẫu cho các kệ (có thể thay thế bằng API call sau này)
-const shelfData = {
-  'A1-M1': { rows: 5, cols: 6, name: 'Kệ A1-M1 - Khoa học máy tính' },
-  'A1-M2': { rows: 5, cols: 6, name: 'Kệ A1-M2 - Lập trình' },
-  'A2-M1': { rows: 6, cols: 5, name: 'Kệ A2-M1 - Toán học' },
-  'A2-M2': { rows: 6, cols: 5, name: 'Kệ A2-M2 - Vật lý' },
-  'B1-M1': { rows: 5, cols: 6, name: 'Kệ B1-M1 - Văn học' },
-  'B1-M2': { rows: 5, cols: 6, name: 'Kệ B1-M2 - Lịch sử' },
-  'B2-M1': { rows: 6, cols: 5, name: 'Kệ B2-M1 - Địa lý' },
-  'B2-M2': { rows: 6, cols: 5, name: 'Kệ B2-M2 - Sinh học' },
-  'C1-M1': { rows: 5, cols: 6, name: 'Kệ C1-M1 - Hóa học' },
-  'C1-M2': { rows: 5, cols: 6, name: 'Kệ C1-M2 - Kinh tế' },
-  'C2-M1': { rows: 6, cols: 5, name: 'Kệ C2-M1 - Triết học' },
-  'C2-M2': { rows: 6, cols: 5, name: 'Kệ C2-M2 - Tâm lý học' },
-  'D1-M1': { rows: 5, cols: 6, name: 'Kệ D1-M1 - Nghệ thuật' },
-  'D1-M2': { rows: 5, cols: 6, name: 'Kệ D1-M2 - Âm nhạc' },
-  'D2-M1': { rows: 6, cols: 5, name: 'Kệ D2-M1 - Thể thao' },
-  'D2-M2': { rows: 6, cols: 5, name: 'Kệ D2-M2 - Du lịch' },
-  'E1-M1': { rows: 5, cols: 6, name: 'Kệ E1-M1 - Ngoại ngữ' },
-  'E1-M2': { rows: 5, cols: 6, name: 'Kệ E1-M2 - Từ điển' },
-  'E2-M1': { rows: 6, cols: 5, name: 'Kệ E2-M1 - Y học' },
-  'E2-M2': { rows: 6, cols: 5, name: 'Kệ E2-M2 - Dược học' },
-  'F1-M1': { rows: 5, cols: 6, name: 'Kệ F1-M1 - Nông nghiệp' },
-  'F1-M2': { rows: 5, cols: 6, name: 'Kệ F1-M2 - Công nghệ' },
-  'F2-M1': { rows: 6, cols: 5, name: 'Kệ F2-M1 - Kỹ thuật' },
-  'F2-M2': { rows: 6, cols: 5, name: 'Kệ F2-M2 - Kiến trúc' },
-  'G1-M1': { rows: 5, cols: 6, name: 'Kệ G1-M1 - Marketing' },
-  'G1-M2': { rows: 5, cols: 6, name: 'Kệ G1-M2 - Quản trị' },
-  'G2-M1': { rows: 6, cols: 5, name: 'Kệ G2-M1 - Luật pháp' },
-  'G2-M2': { rows: 6, cols: 5, name: 'Kệ G2-M2 - Chính trị' },
-  'H1-M1': { rows: 5, cols: 6, name: 'Kệ H1-M1 - Xã hội học' },
-  'H1-M2': { rows: 5, cols: 6, name: 'Kệ H1-M2 - Nhân học' },
-  'H2-M1': { rows: 6, cols: 5, name: 'Kệ H2-M1 - Giáo dục' },
-  'H2-M2': { rows: 6, cols: 5, name: 'Kệ H2-M2 - Truyền thông' }
-};
+// Cache để lưu dữ liệu kệ đã load (tránh gọi API nhiều lần)
+const shelfDataCache = {};
 
-// Hàm tạo trạng thái ngẫu nhiên cho mỗi ô (để demo)
-function getRandomStatus() {
-  const rand = Math.random();
-  if (rand < 0.4) return 'empty';      // 40% - còn trống
-  if (rand < 0.7) return 'warning';    // 30% - sắp đầy
-  if (rand < 0.9) return 'full';       // 20% - đã đầy
-  return 'disabled';                   // 10% - không sử dụng
+// Hàm lấy trạng thái dựa trên số lượng sách
+function getStatusFromCount(count) {
+  if (count === 0) return 'disabled';  // Không có sách
+  if (count < 10) return 'empty';      // Còn ít sách
+  if (count < 20) return 'warning';    // Sắp đầy
+  return 'full';                       // Đầy
 }
 
-// Hàm tạo số sách ngẫu nhiên
-function getRandomBookCount(status) {
-  if (status === 'empty') return Math.floor(Math.random() * 30) + 1;
-  if (status === 'warning') return Math.floor(Math.random() * 20) + 60;
-  if (status === 'full') return Math.floor(Math.random() * 10) + 90;
-  return 0;
-}
-
-// Hàm tạo ma trận kệ sách
+// Hàm tạo ma trận kệ sách (sử dụng dữ liệu từ API)
 function createShelfMatrix(shelfId) {
-  const shelf = shelfData[shelfId];
-  if (!shelf) return;
+  // Hiển thị loading
+  const matrixContainer = document.getElementById('shelfMatrix');
+  const modalTitle = document.getElementById('shelfMatrixModalLabel');
+  
+  matrixContainer.innerHTML = '<div class="text-center p-5"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Đang tải...</span></div><p class="mt-3">Đang tải dữ liệu kệ sách...</p></div>';
+  modalTitle.innerHTML = `<i class="bi bi-grid-3x3"></i> Đang tải...`;
+  
+  // Kiểm tra cache trước
+  if (shelfDataCache[shelfId]) {
+    renderShelfMatrix(shelfDataCache[shelfId]);
+    return;
+  }
+  
+  // Gọi API để lấy dữ liệu thực
+  fetch(`/api/shelf/${shelfId}/`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      // Lưu vào cache
+      shelfDataCache[shelfId] = data;
+      
+      // Render ma trận
+      renderShelfMatrix(data);
+    })
+    .catch(error => {
+      console.error('Error loading shelf data:', error);
+      matrixContainer.innerHTML = `
+        <div class="alert alert-danger m-3">
+          <h5>Lỗi khi tải dữ liệu</h5>
+          <p>${error.message}</p>
+          <p>Vui lòng thử lại sau hoặc kiểm tra kết nối mạng.</p>
+        </div>
+      `;
+      modalTitle.innerHTML = `<i class="bi bi-exclamation-triangle"></i> Lỗi`;
+    });
+}
 
+// Hàm render ma trận từ dữ liệu API
+function renderShelfMatrix(data) {
   const matrixContainer = document.getElementById('shelfMatrix');
   const matrixShelfId = document.getElementById('matrixShelfId');
   const matrixRows = document.getElementById('matrixRows');
   const matrixCols = document.getElementById('matrixCols');
   const modalTitle = document.getElementById('shelfMatrixModalLabel');
 
-  // Cập nhật thông tin
-  matrixShelfId.textContent = shelfId;
-  matrixRows.textContent = shelf.rows;
-  matrixCols.textContent = shelf.cols;
-  modalTitle.innerHTML = `<i class="bi bi-grid-3x3"></i> ${shelf.name}`;
+  // Cập nhật thông tin kệ
+  matrixShelfId.textContent = data.name;
+  matrixRows.textContent = data.rows;
+  matrixCols.textContent = data.cols;
+  modalTitle.innerHTML = `<i class="bi bi-grid-3x3"></i> ${data.name} - ${data.description}`;
 
-  // Xóa ma trận cũ
+  // Xóa nội dung cũ
   matrixContainer.innerHTML = '';
   
   // Thiết lập grid
-  matrixContainer.style.gridTemplateColumns = `repeat(${shelf.cols}, 1fr)`;
-  matrixContainer.style.gridTemplateRows = `repeat(${shelf.rows}, 1fr)`;
+  matrixContainer.style.gridTemplateColumns = `repeat(${data.cols}, 1fr)`;
+  matrixContainer.style.gridTemplateRows = `repeat(${data.rows}, 1fr)`;
 
-  // Tạo các ô ma trận
-  for (let row = 1; row <= shelf.rows; row++) {
-    for (let col = 1; col <= shelf.cols; col++) {
-      const cell = document.createElement('div');
-      const cellId = `${String.fromCharCode(64 + row)}${col}`;
-      const status = getRandomStatus();
-      const bookCount = getRandomBookCount(status);
-      
-      cell.className = `matrix-cell ${status}`;
-      cell.innerHTML = `
-        <div class="matrix-cell-label">${cellId}</div>
-        <div class="matrix-cell-count">${bookCount > 0 ? bookCount + ' quyển' : 'Trống'}</div>
-      `;
-      
-      // Thêm tooltip
-      cell.title = `Vị trí ${cellId}: ${bookCount} quyển sách`;
-      
-      // Xử lý click vào ô
-      cell.addEventListener('click', () => {
-        if (status !== 'disabled') {
-          showCellDetails(shelfId, cellId, bookCount, status);
-        }
-      });
-      
-      matrixContainer.appendChild(cell);
-    }
-  }
+  // Tạo các ô ma trận từ dữ liệu thực
+  data.compartments.forEach(comp => {
+    const cell = document.createElement('div');
+    const status = getStatusFromCount(comp.book_count);
+    
+    cell.className = `matrix-cell ${status}`;
+    cell.innerHTML = `
+      <div class="matrix-cell-label">${comp.name}</div>
+      <div class="matrix-cell-count">${comp.book_count} quyển</div>
+    `;
+    
+    // Thêm tooltip
+    cell.title = `Vị trí ${comp.name}: ${comp.book_count} quyển sách`;
+    
+    // Xử lý click vào ô để xem chi tiết sách
+    cell.addEventListener('click', () => {
+      if (status !== 'disabled') {
+        showCellDetails(data.name, comp.name, comp.book_count, status);
+      }
+    });
+    
+    matrixContainer.appendChild(cell);
+  });
 }
 
-// Hàm hiển thị chi tiết ô
+// Hàm hiển thị chi tiết ô (lấy danh sách sách thật từ API)
 function showCellDetails(shelfId, cellId, bookCount, status) {
   const statusText = {
     'empty': 'Còn trống',
@@ -117,18 +111,46 @@ function showCellDetails(shelfId, cellId, bookCount, status) {
     'disabled': 'Không sử dụng'
   };
   
-  alert(`Chi tiết vị trí ${cellId} - Kệ ${shelfId}\n\n` +
-        `Số lượng sách: ${bookCount} quyển\n` +
-        `Trạng thái: ${statusText[status]}\n\n` +
-        `(Tính năng xem chi tiết sẽ được phát triển thêm)`);
+  // Nếu không có sách, chỉ hiển thị thông báo đơn giản
+  if (bookCount === 0) {
+    alert(`Vị trí ${cellId} - Kệ ${shelfId}\n\n` +
+          `Trạng thái: ${statusText[status]}\n` +
+          `Hiện chưa có sách trong ngăn này.`);
+    return;
+  }
+  
+  // Gọi API để lấy danh sách sách
+  fetch(`/api/shelf/${shelfId}/compartment/${cellId}/`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Received compartment books:', data);
+      
+      // Tạo nội dung hiển thị
+      let bookList = data.books.map((book, index) => 
+        `${index + 1}. ${book.name} (Mã: ${book.code})\n   Loại: ${book.book_type__name}`
+      ).join('\n\n');
+      
+      alert(`Chi tiết vị trí ${cellId} - Kệ ${shelfId}\n\n` +
+            `Số lượng sách: ${bookCount} quyển\n` +
+            `Trạng thái: ${statusText[status]}\n\n` +
+            `Danh sách sách:\n${bookList || '(Không có dữ liệu chi tiết)'}`);
+    })
+    .catch(error => {
+      console.error('Error loading compartment books:', error);
+      alert(`Lỗi khi tải danh sách sách:\n${error.message}\n\n` +
+            `Vị trí ${cellId} - Kệ ${shelfId}\n` +
+            `Số lượng sách: ${bookCount} quyển`);
+    });
 }
 
 // Xử lý click vào kệ sách
 function initShelfClickHandlers() {
-  console.log('Initializing shelf click handlers...');
-  
   const shelves = document.querySelectorAll('.shelf-clickable');
-  console.log('Found shelves:', shelves.length);
   
   if (shelves.length === 0) {
     console.warn('No shelves found with class .shelf-clickable');
@@ -144,7 +166,6 @@ function initShelfClickHandlers() {
   shelves.forEach(shelf => {
     shelf.addEventListener('click', function(e) {
       e.preventDefault();
-      console.log('Shelf clicked:', this.getAttribute('data-shelf-id'));
       
       const shelfId = this.getAttribute('data-shelf-id');
       if (!shelfId) {
@@ -176,7 +197,6 @@ function initShelfClickHandlers() {
   if (modalElement) {
     // Lắng nghe sự kiện khi modal bị ẩn
     modalElement.addEventListener('hidden.bs.modal', function () {
-      console.log('Modal đã đóng, đang ở trang shelf-map');
       // Xóa backdrop nếu còn sót lại
       const backdrop = document.querySelector('.modal-backdrop');
       if (backdrop) {
@@ -188,17 +208,11 @@ function initShelfClickHandlers() {
       document.body.style.paddingRight = '';
     });
   }
-  
-  console.log('Shelf click handlers initialized successfully');
 }
 
 // Khởi tạo khi DOM đã sẵn sàng
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initShelfClickHandlers);
 } else {
-  // DOM đã sẵn sàng, chạy luôn
   initShelfClickHandlers();
 }
-
-// ====== TÌM KIẾM ======
-// (Chức năng tìm kiếm có thể được thêm sau nếu cần)
